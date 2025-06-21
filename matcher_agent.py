@@ -1,5 +1,6 @@
 import requests
 from uagents import Agent, Context
+from utils.solana import call_solana_wallet_api
 
 matcher = Agent(name="MatcherAgent")
 
@@ -25,7 +26,13 @@ async def match_requests(ctx: Context):
                 ctx.logger.info(f"Found match: Request {req['id']} ⇄ Offer {offer['id']}")
 
                 # Here: send messages to borrower and lender agents (if addresses known)
-                # You'd typically use ctx.send or create an Agent Directory
+                # You'd typically use ctx.send or create an Agent Directory 
+
+
+                # Inside your match logic:
+                # response = call_solana_wallet_api(from_address=MATCHER_WALLET, to_address=offer['lender_wallet'], amount_sol=0.01, api_url=API_URL, api_key=API_KEY)
+                # ctx.logger.info(f"Wallet transfer response: {response}")
+
 
 if __name__ == "__main__":
     matcher.run()

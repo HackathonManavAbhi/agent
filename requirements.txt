@@ -1,0 +1,4 @@
+uagents
+requests
+solana
+python-dotenv

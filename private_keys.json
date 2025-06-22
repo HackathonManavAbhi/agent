@@ -2,5 +2,13 @@
     "BorrowerAgent": {
         "identity_key": "6080653d931b92212e099d54aea25410082d25295baa9a7022824e8414c83879",
         "wallet_key": "6D4cw8Q1Z7Zhssu2cuGApzBTQyEdceRRG+XBwvBtPN8="
+    },
+    "MatcherAgent": {
+        "identity_key": "cfb6c71a3dc36c78503be0b7a8c7878097e58e73c158df41338f7f30c27c83c6",
+        "wallet_key": "fFUgkq08QsU5SosTyvq16o9ZgO7+TFV/i7u2bEPqrHI="
+    },
+    "LenderAgent": {
+        "identity_key": "9c22edf4890143f26badf0263775369a81317042ee06a1aa1fb67857e9c6400a",
+        "wallet_key": "sn5BTg0dI/VDOeYUAhUanFD2OoH5RTnl9bv21ZBS1SY="
     }
 }

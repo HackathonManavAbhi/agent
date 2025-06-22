@@ -1,23 +1,22 @@
 import requests
 from uagents import Agent, Context
-from utils.solana import call_solana_wallet_api
+from utils.solana import call_solana_wallet_api, load_wallet_from_secret, get_wallet_balance
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+wallet = load_wallet_from_secret(os.getenv("SOLANA_SECRET"))
+wallet_address = str(wallet.public_key)
 
 matcher = Agent(name="MatcherAgent")
-
-SUPABASE_URL = "https://dqzfwqydxzjfrjnbsopi.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRxemZ3cXlkeHpqZnJqbmJzb3BpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA0ODc2NDEsImV4cCI6MjA2NjA2MzY0MX0.7CHeu5ORvQZMsD7WD2IXSL3r5dMETycY1ob2CODI-us"
-SUPABASE_HEADERS = {
-    "apikey": SUPABASE_KEY,
-    "Authorization": f"Bearer {SUPABASE_KEY}"
-}
 
 @matcher.on_interval(period=30)  # Every 30 seconds
 async def match_requests(ctx: Context):
     ctx.logger.info("Checking Supabase for matchable loans...")
 
     # Example: fetch loan_requests and loan_offers (simplified, unsecured version)
-    loan_requests = requests.get(f"{SUPABASE_URL}/rest/v1/loan_requests", headers=SUPABASE_HEADERS).json()
-    loan_offers = requests.get(f"{SUPABASE_URL}/rest/v1/loan_offers", headers=SUPABASE_HEADERS).json()
+    loan_requests = requests.get(f"{os.getenv("SUPABASE_URL")}/rest/v1/loan_requests", headers=os.getenv("SUPABASE_HEADERS")).json()
+    loan_offers = requests.get(f"{os.getenv("SUPABASE_URL")}/rest/v1/loan_offers", headers=os.getenv("SUPABASE_HEADERS")).json()
 
     # Find a simple match (same amount & duration)
     for req in loan_requests:
